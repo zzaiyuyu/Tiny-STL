@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <assert.h>
-#include "String.h"
 
 /*类型萃取，判断当前对象是否是自定义类型*/
 /*原理：利用编译器，在编译期间判断T的类型，若在特化列表里优先使用特化的模板类*/
@@ -38,7 +37,6 @@ struct TypeTraits<double> {
 template<class T>
 class Vector {
 public:
-	static void TestVector();
 	//连续空间，指针完全胜任迭代器
 	typedef T* Iterator;
 	Vector() 
@@ -274,42 +272,3 @@ void Vector<T>::Erase(size_t pos)
 	--_finish;
 }
 
-
-template<typename T>
-void Vector<T>::TestVector()
-{
-	Vector<double> vi(5, 3.14);
-	vi.PushBack(1.5);
-	vi.PushBack(2.5);
-	vi.PushBack(3.33);
-	std::cout << vi.Size() << std::endl;
-	std::cout << vi.Capacity() << std::endl;
-	std::cout << vi.Front() << std::endl;
-	std::cout << vi.Back() << std::endl;
-	vi.PopBack();
-	vi.PopBack();
-	std::cout << vi.Size() << std::endl;
-	std::cout << vi.Capacity() << std::endl;
-	std::cout << vi.Front() << std::endl;
-	std::cout << vi.Back() << std::endl;
-	vi.Resize(20, 9);
-	std::cout << std::endl;
-	for (size_t i = 0; i < vi.Size(); i++) {
-		std::cout << vi[i] << " ";
-	}
-	std::cout << std::endl;
-	Vector<double> vb(vi);
-	for (size_t i = 0; i < vb.Size(); i++) {
-		std::cout << vb[i] << " ";
-	}
-	Vector<String> vs(10, "Nice");
-	vs.PushBack("l1");
-	vs.PushBack("12");
-	vs.Erase(10);
-	vs.Insert(1, "insert");
-	vs.PopBack();
-	Vector<String>::Iterator it;
-	for (it = vs.Begin(); it != vs.End(); it++) {
-		std::cout << *it << std::endl;
-	}
-}

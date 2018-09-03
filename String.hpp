@@ -1,10 +1,9 @@
 #ifndef STRING_H
 #define STRING_H
 #include <iostream>
-using namespace std;
 class String {
 public:
-	friend ostream & operator<<(ostream& cout, String& s);
+	friend std::ostream & operator<<(std::ostream& cout, String& s);
 	String(const char* str = "")
 	{
 		if (NULL == str) {
@@ -21,7 +20,7 @@ public:
 	}
 
 	String& operator=(String s) {
-		swap(_pStr, s._pStr);
+		std::swap(_pStr, s._pStr);
 		return *this;
 	}
 	//四步赋值版本
@@ -47,7 +46,7 @@ public:
 		char* tmp = new char[len];
 		strcpy(tmp, _pStr);
 		strcat(tmp, s._pStr);
-		swap(tmp, s._pStr);
+		std::swap(tmp, s._pStr);
 		delete[] tmp;
 		return s;
 	}
@@ -87,7 +86,7 @@ private:
 	char* _pStr;
 };
 
-ostream & operator<<(ostream& cout, String& s)
+std::ostream & operator<<(std::ostream& cout, String& s)
 {
 	cout << s._pStr;
 	return cout;

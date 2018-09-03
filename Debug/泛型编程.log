@@ -1,2 +1,19 @@
-﻿  main.cpp
+﻿  Vector.hpp
+  main.cpp
+c:\users\韩铮\source\repos\泛型编程\泛型编程\string.hpp(72): warning C4018: “>=”: 有符号/无符号不匹配
+c:\users\韩铮\source\repos\泛型编程\泛型编程\string.hpp(72): warning C4018: “>”: 有符号/无符号不匹配
+c:\users\韩铮\source\repos\泛型编程\泛型编程\string.hpp(77): warning C4018: “>=”: 有符号/无符号不匹配
+c:\users\韩铮\source\repos\泛型编程\泛型编程\vector.hpp(255): warning C4018: “>=”: 有符号/无符号不匹配
+  c:\users\韩铮\source\repos\泛型编程\泛型编程\vector.hpp(250): note: 编译 类 模板 成员函数 "void Vector<String>::Insert(::size_t,const T &)" 时
+          with
+          [
+              T=String
+          ]
+  c:\users\韩铮\source\repos\泛型编程\泛型编程\main.cpp(39): note: 参见对正在编译的函数 模板 实例化“void Vector<String>::Insert(::size_t,const T &)”的引用
+          with
+          [
+              T=String
+          ]
+  c:\users\韩铮\source\repos\泛型编程\泛型编程\main.cpp(35): note: 参见对正在编译的 类 模板 实例化 "Vector<String>" 的引用
+  正在生成代码...
   泛型编程.vcxproj -> C:\Users\韩铮\source\repos\泛型编程\Debug\泛型编程.exe

@@ -247,7 +247,6 @@ public:
 		else
 		{
 			__TRACE_LOG("在freelist[%u]位置取一个内存块\n", index);
-
 			Obj* obj = _freeList[index];
 			_freeList[index] = obj->_freeListLink;
 			return obj;
