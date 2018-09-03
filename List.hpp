@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Alloc.h"
 //带头双向循环链表
 template<typename T>
 struct ListNode {
@@ -55,9 +56,10 @@ private:
 	PNode _pNode;
 };
 
-template<typename T>
+template<typename T, class Alloc = alloc>
 class List {
 public:
+	typedef ListNode<T> Node;
 	List() {
 		_CreateHead();
 	}
@@ -106,7 +108,7 @@ public:
 		while (_pHead->_pNext != _pHead) {
 			PopBack();
 		}
-		delete _pHead;
+		DestoryNode(_pHead);
 		_pHead = NULL;
 	}
 
@@ -146,7 +148,7 @@ public:
 		return _pHead->_pPre->_data;
 	}
 	void PushBack(const T& data) {
-		ListNode<T>* pNewNode = new ListNode<T>(data);
+		ListNode<T>* pNewNode = BuyNode(data);
 		pNewNode->_pNext = _pHead;
 		pNewNode->_pPre = _pHead->_pPre;
 		_pHead->_pPre = pNewNode;
@@ -157,12 +159,12 @@ public:
 		if (pDelNode!=_pHead) {
 			pDelNode->_pPre->_pNext = _pHead;
 			_pHead->_pPre = pDelNode->_pPre;
-			delete pDelNode;
+			DestoryNode(pDelNode);
 		}
 	}
 	void PushFront(const T& data)
 	{
-		ListNode<T>* pNewNode = new ListNode<T>(data);
+		ListNode<T>* pNewNode = BuyNode(data);
 		pNewNode->_pNext = _pHead->_pNext;
 		pNewNode->_pPre = _pHead;
 		_pHead->_pNext = pNewNode;
@@ -174,11 +176,11 @@ public:
 			ListNode<T>* pDel = _pHead->_pNext;
 			pDel->_pNext->_pPre = _pHead;
 			_pHead->_pNext = pDel->_pNext;
-			delete pDel;
+			DestoryNode(pDel);
 		}
 	}
 	ListNode<T>* Insert(ListNode<T>* pos, const T& data) {
-		ListNode<T>* pNewNode = new ListNode<T>(data);
+		ListNode<T>* pNewNode = BuyNode(data);
 		ListNode<T>* pCur = _pHead;
 		while (pCur->_pNext != pos) {
 			pCur = pCur->_pNext;
@@ -198,7 +200,7 @@ public:
 		ListNode<T>* pDel = pCur -> _pNext;
 		pCur->_pNext = pCur->_pNext->_pNext;
 		pCur->_pNext->_pPre = pCur;
-		delete pDel;
+		DestoryNode(pDel);
 	}
 	ListNode<T>* Find(T data) {
 		ListNode<T>* pCur = _pHead->_pNext;
@@ -214,8 +216,17 @@ public:
 		return _pHead;
 	}
 private:
+	Node* BuyNode(const T& x) {
+		Node* node = SimpleAlloc<Node, Alloc>::Allocate();
+		new (&node->_data) T(x);
+		return node;
+	}
+	void DestoryNode(Node* node) {
+		node->_data.~T();
+		SimpleAlloc<Node, Alloc>::Deallocate(node);
+	}
 	void _CreateHead() {
-		_pHead = new ListNode<T>(0);
+		_pHead = BuyNode(0);
 		_pHead->_pNext = _pHead;
 		_pHead->_pPre = _pHead;
 	}

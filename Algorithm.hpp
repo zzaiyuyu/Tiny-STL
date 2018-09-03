@@ -146,4 +146,3 @@ inline void _QuickSortLoop(Iterator first, Iterator last) {
 		_QuickSortLoop(mid+1, last);
 	}
 }
-

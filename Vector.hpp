@@ -33,7 +33,7 @@ struct TypeTraits<double> {
 };
 
 /**********************vector*****************************/
-
+/*erase还是resize都不能减小vector空间，因为为了保证迭代器有效，数据必须是连续存储的。可以利用拷贝构造一个tmp，然后交换*/
 
 template<class T>
 class Vector {
